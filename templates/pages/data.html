@@ -1,0 +1,94 @@
+{% extends 'wrapper.html' %}
+{% block content %}
+<div class="row ps-3 pe-3">
+    <div class="col-12 mt-5"></div>
+    <div class="d-none d-md-block col-md-2"></div>
+    <div class="col-12 col-md-8">
+        <div class="row">
+            <div class="col-12 p-2"><button class="btn btn-sm btn-dark" onclick="history.back()">Go Back</button></div>
+            <div class="col-12 p-2">
+                <h4>{{data.name}}</h4>
+                <h6>{{data.group}}</h6>
+
+                <input id="def-carbs" value="{{data.carbs}}" hidden readonly />
+                <input id="def-fat" value="{{data.fat}}" hidden readonly />
+                <input id="def-protein" value="{{data.protein}}" hidden readonly />
+                <input id="def-cal" value="{{data.cal}}" hidden readonly />
+                
+                <input id="carbs" value="{{data.carbs}}" hidden readonly />
+                <input id="fat" value="{{data.fat}}" hidden readonly />
+                <input id="protein" value="{{data.protein}}" hidden readonly />
+                <input id="cal" value="{{data.cal}}" hidden readonly />
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-3 col-lg-2 col-xl-3">
+                <label for="serving-option">Serving</label>
+                <select id="serving-option" class="form-select form-select-sm">
+                    <option value="1">Default - 1 g</option>
+                    {% for serv in data.serv %}
+                        <option value="{{serv.weight}}">{{serv.desc}} - {{serv.weight}} g</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-3 col-sm-3 col-lg-2">
+                <label for="serving-option">Qty</label>
+                <input id="serving-no" type="number" value="1" min="1" class="form-control form-control-sm" />
+            </div>
+            <div class="col-4 col-lg-2">
+                <label for="serving-limit">Carb Limit</label>
+                <select id="serving-limit" class="form-select form-select-sm">
+                    <option value="20">20 g</option>
+                    <option value="30">30 g</option>
+                    <option value="40">40 g</option>
+                    <option value="50">50 g</option>
+                </select>
+            </div>
+            <div class="col-2 col-lg-6 col-xl-4 mt-4">
+                <button id="btn-serve" class="btn btn-sm btn-success"> Apply </button>
+            </div>
+            <!-- col-12 col-lg-6 col-xl-4 p-2 -->
+          </div>
+        <div class="row">
+            <div class="col-12 col-lg-6 col-xl-8 p-2">
+                <table class="table table-condensed table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Value <i>(g)</i></th>
+                            <th>Calories</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-end">
+                        <tr>
+                            <td class="text-start">Carbohydrates</td>
+                            <td id="disp-carbs">{{ data.carbs|round(3) }}</td>
+                            <td id="disp-carbs-cal">{{ (data.carbs * 4)|round(3) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Fats</td>
+                            <td id="disp-fat">{{ data.fat|round(3) }}</td>
+                            <td id="disp-fat-cal">{{ (data.fat * 9)|round(3) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Protein</td>
+                            <td id="disp-protein">{{ data.protein|round(3) }}</td>
+                            <td id="disp-protein-cal">{{ (data.protein * 4)|round(3) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start" colspan="2">Total Calories <i>(rounded)</i>:</td>
+                            <td id="disp-cal">{{ data.cal|round(3) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 ">
+                <canvas id="donut-area"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="d-none d-md-block col-md-2"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/data.js') }}"></script>
+{% endblock %}

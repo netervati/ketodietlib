@@ -1,0 +1,92 @@
+{% extends 'wrapper.html' %}
+{% block content %}
+<div class="row ps-1 pe-1">
+    <div class="col-12 mt-5"></div>
+    <div class="d-none d-md-block col-md-2"></div>
+    <div class="col-12 col-md-8">
+        <form method="get" action="/search">
+            <div class="row">
+                <div class="col-10">
+                    <input id="name" name="name" placeholder="Type Food..." class="form-control">
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-danger float-end">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <img width="300" src="{{url_for('static',filename='img/myburger-graphics.png') }}" />
+                <div id="initial-splash">
+                    <h3 class="title-flip show">Careful! Don't eat it yet without knowing how much <b class="text-danger"><u>carbs</u></b> it has.</h3>
+                    <h3 class="title-flip show">Let's find out first. Click <b id="text-trigger"><a role="button" class="text-danger">Here</a></b>.</h3>
+                </div>
+                <h2 id="numProp" class="text-danger">0 g</h2>
+                <h3 id="title-second">This is unhealthy for you. Check if your food has good amount of carbs by using the search bar above.</h3>
+            </div>
+        </div>
+    </div>
+    <div class="d-none d-md-block col-md-2"></div>
+</div>
+
+<script>
+    let numprop = document.getElementById('numProp');
+    let titleflip = document.getElementsByClassName('title-flip');
+    let texttrigger = document.getElementById('text-trigger');
+    let initialsplash = document.getElementById('initial-splash');
+    let titlesecond = document.getElementById('title-second');
+    let curVal = 0;
+    let lapse = 0;
+    let speed = 100;
+    let start;
+
+    function numTransition(timeinterval){
+        if (start == null){
+            start = timeinterval
+        }
+        let elapsed = timeinterval - start;
+        
+        if (lapse > 20){
+            curVal += 0.25;
+            start = timeinterval;
+            numprop.innerHTML = parseFloat(curVal).toFixed(2) +" g";
+            console.log(true);
+        }
+        else if (elapsed >= speed){
+            curVal += 0.05;
+            start = timeinterval;
+            numprop.innerHTML = parseFloat(curVal).toFixed(2) +" g";
+            if(lapse >= 20){
+                if (speed > 6)
+                    speed = 1;
+            }
+            else if(lapse >= 3){
+                if (speed > 57)
+                    speed = 35;
+            }
+            lapse++;
+        }
+        if (curVal < 26.55){
+            requestAnimationFrame(numTransition);
+        }
+        else{
+            titlesecond.classList.add('show');
+        }
+    }
+
+    texttrigger.addEventListener('click',function(){
+        for (let x = 0, total = titleflip.length; x < total; x++){
+            titleflip[x].classList.remove('show');
+        }
+        setTimeout(function(){
+            initialsplash.innerHTML = "";
+            numprop.classList.add('show');
+            requestAnimationFrame(numTransition);
+        },1000);
+    });
+
+</script>
+
+<!-- Double Hamburger 2 Small Patties Plain On Bun From Fast Food / Restaurant -->
+<!-- 26.55 -->
+{% endblock %}

@@ -1,0 +1,60 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+.custom-nav a{
+    text-decoration: none;
+    color: #ed2224;
+}
+.custom-nav .nav-modal{
+    text-decoration: none;
+    color: #ed2224;
+    cursor: pointer;
+}
+.custom-nav .c-active a{
+    text-decoration: underline;
+    font-weight: bold;
+    color: #ed2224;
+}
+.custom-nav a:hover{
+    text-decoration: none;
+    color: #bf2023;
+}
+.custom-nav .nav-modal:hover{
+    text-decoration: none;
+    color: #bf2023;
+    cursor: pointer;
+}
+.food-row a{
+    text-decoration: none;
+}
+#tricks-modal{
+    font-size: 14px;
+}
+.title-flip{
+    opacity: 0;
+    transition: 1s opacity ease-in-out;
+}
+.title-flip.show{
+    opacity: 100;
+}
+#numProp{
+    opacity: 0;
+    visibility: hidden;
+    transition: 2s opacity ease-in-out;
+    font-weight: bold;
+}
+#numProp.show{
+    opacity: 100;
+    visibility: visible;
+}
+#title-second{
+    opacity: 0;
+    margin-top: -80px;
+    visibility: hidden;
+    transition: 1s opacity ease-in-out;
+}
+#title-second.show{
+    visibility: visible;
+    margin-top: auto;
+    opacity: 100;
+}
