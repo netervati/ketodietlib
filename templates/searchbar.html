@@ -1,14 +1,14 @@
 <div class="row mt-5">
-    <div class="d-none d-md-block col-md-2"></div>
-    <div class="col-12 col-md-8">
+    <div class="d-none d-md-block col-md-1 col-lg-2"></div>
+    <div class="col-12 col-md-10 col-lg-8">
         <form id="search-bar" method="get" action="/search">
             <div class="row">
-                <div class="col-7">
+                <div class="col-6">
                     <input id="name" name="name" value="{{name}}" placeholder="Type Food..." class="form-control">
                     <input id="page" name="page" type="number" value="{{page}}" hidden readonly>
                     <input id="returntotal" type="number" value="{{countreturn}}" hidden readonly>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                     <select name="sort" class="form-select">
                         {% if sort == "0" %}
                             <option value="0" selected>Name (Asc)</option>
@@ -47,5 +47,5 @@
         <a data-flip="0" role="button" class="btn-nav float-start">Left</a>
         <a data-flip="1" role="button" class="btn-nav float-end">Right</a>
     </div>
-    <div class="d-none d-md-block col-md-2"></div>
+    <div class="d-none d-md-block col-md-1 col-lg-2"></div>
 </div>

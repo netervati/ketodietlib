@@ -2,24 +2,24 @@
 {% block content %}
 {% include 'searchbar.html' %}
 <div class="row ps-3 pe-3">
-    <div class="d-none d-md-block col-md-2"></div>
-    <div class="col-12 col-md-8">
+    <div class="d-none d-md-block col-md-1 col-lg-2"></div>
+    <div class="col-12 col-md-10 col-lg-8">
         <div class="row">
-            <div class="col-8 border border-light p-2"><b>NAME</b></div>
-            <div class="col-4 border border-light p-2"><b>FOOD GROUP</b></div>
+            <div class="col-8 border border-light p-2 text-center"><b>NAME</b></div>
+            <div class="col-4 border border-light p-2 text-center"><b>FOOD GROUP</b></div>
         </div>
         {% for food in results %}
         <div class="row food-row">
             <div class="col-8 border border-light p-1">
                 <a href="/result/data?name={{food.url}}">{{food.name}}</a>
             </div>
-            <div class="col-4 border border-light p-1">
+            <div class="col-4 border border-light p-1 text-center">
                 {{food.group}}
             </div>
         </div>
         {% endfor %}
     </div>
-    <div class="d-none d-md-block col-md-2"></div>
+    <div class="d-none d-md-block col-md-1 col-lg-2"></div>
 </div>
 
 <script src="{{url_for('static',filename='js/results.js')}}"></script>

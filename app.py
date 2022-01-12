@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Blueprint, Flask, request, render_template
 from flask_pymongo import PyMongo
 from urllib.parse import quote_plus, unquote_plus
 from dotenv import load_dotenv
@@ -8,7 +8,6 @@ load_dotenv('.env')
 
 app = Flask(__name__,static_url_path='',static_folder='static',)
 app.config['MONGO_URI'] = os.getenv('MONGO_URI')
-app.config['TESTING'] = os.getenv('TESTING')
 mongo = PyMongo(app)
 food_collection = mongo.db.foodinfo
 
@@ -27,6 +26,31 @@ def onegram(data):
 @app.route('/')
 def index():
     return render_template('pages/landing.html',cursor="home")
+
+@app.route('/top')
+def topData():
+    agg_pipe = []
+    display = []
+
+    agg_pipe.append({'$match':{"$and":[{"group":{"$ne":""}},{"group":{"$ne":None}}]}})
+    agg_pipe.append({"$group" : {'_id':"$group", 'groupname':{'$first':'$group'} }})
+    agg_pipe.append({"$sort" : {'groupname': 1}})
+    for x in food_collection.aggregate(agg_pipe):
+        sub_agg_pipe = []
+        sub_agg_pipe.append({'$match': {'group':x['groupname']} })
+        sub_agg_pipe.append({'$project': {'fat': '$fat','carbs': '$carbs','name': '$name' ,'Keto': {'$cond': { 'if': { '$gt': [ "$fat", '$carbs' ] }, 'then': {'$subtract':['$fat','$carbs']}, 'else': 0 }} } })
+        sub_agg_pipe.append({'$match':{'Keto':{'$gt':0}}})
+        sub_agg_pipe.append({'$sort': {'Keto': -1}})
+        sub_agg_pipe.append({'$limit':5})
+
+        topdata = []
+        for y in food_collection.aggregate(sub_agg_pipe):
+            yFat = 0 if y['fat'] == None else float(str(y['fat']))
+            yCarbs = 0 if y['carbs'] == None else float(str(y['carbs']))
+            topdata.append({'name': y['name'],'fat': yFat,'carbs': yCarbs })
+        
+        display.append({'group':x['groupname'], 'topdata':topdata })
+    return render_template('pages/top.html',pergroup=display,cursor="top")
 
 @app.route('/search',methods = ['GET'])
 def search():

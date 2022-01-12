@@ -1,0 +1,46 @@
+{% extends 'wrapper.html' %}
+{% block content %}
+<div class="row ps-3 pe-3">
+    <div class="d-none d-md-block col-md-1 col-lg-2"></div>
+    <div class="col-12 col-md-10 col-lg-8">
+        <div class="row">
+            <div class="col-12 text-center">    
+                <h5 class="mt-5">Top 5 data per Food Group with the Highest Fats and Lowest Carbs</h5>
+                <p>All foods are displayed in 100g</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-5">   
+                {% for group in pergroup %}
+                    <table class="table table-sm table-condensed">
+                        <thead>
+                            <tr>
+                                <th>{{ group.group }}</th>
+                                <th>Fats</th>
+                                <th>Carbs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if group.topdata|length > 0 %}
+                                {% for food in group.topdata %}
+                                    <tr>
+                                        <td>{{ food.name }}</td>
+                                        <td style="width:80px" class="text-end">{{ food.fat|round(3) }}</td>
+                                        <td style="width:80px" class="text-end">{{ food.carbs|round(3) }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center"><i>No Data has Higher Fats than Carbs in this table</i></td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="d-none d-md-block col-md-1 col-lg-2"></div>
+</div>
+
+{% endblock %}

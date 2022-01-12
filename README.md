@@ -1,5 +1,6 @@
 # Keto Diet Lib
 ![alt text](https://raw.githubusercontent.com/netervati/ketodietlib/main/demo/demosite.gif)
+
 Keto Diet Lib is an informative site with comprehensive data on foods and their nutritional values for ketogenic patients. This project is my submission for the [MongoDB Atlas Hackathon on DEV](https://dev.to/devteam/announcing-the-mongodb-atlas-hackathon-on-dev-4b6m) under the category **Choose Your Own Adventure**. Credit goes to [My Food Data](https://myfooddata.com/) for the dataset.
 
 ## Primary Technologies
@@ -7,7 +8,6 @@ Below are the main technologies that I used:
 - Flask (Backend Framework)
 - Bootstrap, & Vanilla JS (Frontend Technologies)
 - MongoDB (Database)
-
 
 ## Hosting the Application locally
 To use Keto Diet Lib, you will need [python 3.9](https://www.python.org/downloads/release/python-390/). You will also need a [MongoDB](https://www.mongodb.com/) account and the [MongoDB Community Edition](https://docs.mongodb.com/manual/administration/install-community/) application. 
